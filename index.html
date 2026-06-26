@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPTA 자료실</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    min-height: 100vh;
+  }
+  header {
+    background: #1a1d27;
+    border-bottom: 2px solid #2563eb;
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  header .logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  header .logo span { color: #2563eb; }
+  header .subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 2px;
+  }
+  .container {
+    max-width: 860px;
+    margin: 48px auto;
+    padding: 0 24px;
+  }
+  .section { margin-bottom: 40px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .section-header .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .icon-blue { background: #1e3a8a; }
+  .icon-gray { background: #1e293b; }
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #f1f5f9;
+  }
+  .file-list {
+    background: #1a1d27;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .file-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #1e293b;
+    transition: background 0.15s;
+    gap: 14px;
+  }
+  .file-item:last-child { border-bottom: none; }
+  .file-item:hover { background: #20253a; }
+  .file-ext {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 5px;
+    letter-spacing: 0.5px;
+    min-width: 38px;
+    text-align: center;
+  }
+  .ext-pdf { background: #7f1d1d; color: #fca5a5; }
+  .ext-xlsx { background: #14532d; color: #86efac; }
+  .ext-docx { background: #1e3a8a; color: #93c5fd; }
+  .ext-hwp { background: #312e81; color: #c4b5fd; }
+  .ext-pptx { background: #7c2d12; color: #fdba74; }
+  .file-name {
+    flex: 1;
+    font-size: 14px;
+    color: #cbd5e1;
+  }
+  .file-date {
+    font-size: 12px;
+    color: #475569;
+    margin-right: 16px;
+  }
+  .download-btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .download-btn:hover { background: #1d4ed8; }
+  .empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    color: #334155;
+    font-size: 14px;
+  }
+  .empty-state .empty-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  footer {
+    text-align: center;
+    padding: 32px;
+    color: #334155;
+    font-size: 12px;
+    border-top: 1px solid #1e293b;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">N<span>P</span>TA <span style="font-weight:300; color:#475569;">|</span> 자료실</div>
+    <div class="subtitle">업무용 파일 다운로드 센터 · 로그인 없이 이용 가능</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-header">
+      <div class="icon icon-blue">🔧</div>
+      <div class="section-title">AS용 업무파일</div>
+    </div>
+    <div class="file-list" id="list-as">
+      <div class="empty-state">
+        <div class="empty-icon">📂</div>
+        파일을 업로드하면 여기에 표시됩니다
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="icon icon-gray">📁</div>
+      <div class="section-title">기타 자료</div>
+    </div>
+    <div class="file-list" id="list-etc">
+      <div class="empty-state">
+        <div class="empty-icon">📂</div>
+        파일을 업로드하면 여기에 표시됩니다
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  ⓒ NPTA · 내부 업무용 자료실 · 문의: 담당자에게 연락하세요
+</footer>
+
+</body>
+</html>
