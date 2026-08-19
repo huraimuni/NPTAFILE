@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>엔프타 상담 문의</title>
+<style>
+  :root {
+    --blue: #3182F6;
+    --blue-dark: #1B64DA;
+    --navy: #1A2744;
+    --gray: #8B95A1;
+    --border: #E5E8EB;
+    --bg-top: #EAF2FF;
+    --bg-bottom: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 45%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 48px 16px 80px;
+    color: #191F28;
+  }
+  .wrap { width: 100%; max-width: 520px; }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 40px;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--navy);
+  }
+  .brand .dot {
+    width: 28px; height: 28px;
+    border-radius: 9px;
+    background: var(--blue);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+  .brand .dot svg { width: 16px; height: 16px; }
+
+  .heading { text-align: center; margin-bottom: 32px; }
+  .heading .eyebrow {
+    font-size: 14px;
+    color: var(--blue-dark);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .heading h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #191F28;
+  }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 24px;
+    box-shadow: 0 8px 30px rgba(20, 40, 90, 0.08);
+  }
+
+  .section-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #191F28;
+    margin-bottom: 10px;
+  }
+  .time-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .time-slot {
+    box-sizing: border-box;
+    flex: 0 0 calc((100% - 16px) / 3);
+    text-align: center;
+    padding: 11px 0;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #F9FAFB;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #4E5968;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.12s ease;
+  }
+  .time-slot:hover { border-color: #C7D3E0; }
+  .time-slot.selected {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+  }
+
+  .field {
+    margin-bottom: 12px;
+  }
+  .field-row { display: flex; gap: 10px; }
+  input[type="text"], input[type="tel"], input[type="date"], textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #F9FAFB;
+    color: #191F28;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  input::placeholder, textarea::placeholder { color: #B0B8C1; }
+  input:focus, textarea:focus { border-color: var(--blue); background: white; }
+  textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
+
+  .consent { margin-top: 18px; }
+  .consent-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 2px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .consent-row .check {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid #D1D6DB;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    color: white;
+    transition: all 0.12s ease;
+  }
+  .consent-row.checked .check { background: var(--blue); border-color: var(--blue); }
+  .consent-row .label-required { color: var(--blue); font-weight: 700; margin-right: 4px; }
+  .consent-row .label-optional { color: var(--gray); font-weight: 700; margin-right: 4px; }
+  .consent-sub {
+    padding-left: 26px;
+    font-size: 12.5px;
+    color: var(--gray);
+    display: flex;
+    justify-content: space-between;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .consent-sub a { color: var(--gray); text-decoration: underline; }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 16px 0;
+    border: none;
+    border-radius: 14px;
+    background: var(--blue);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.05s ease;
+  }
+  .submit-btn:hover { background: var(--blue-dark); }
+  .submit-btn:active { transform: scale(0.99); }
+  .submit-btn:disabled { background: #B0B8C1; cursor: not-allowed; }
+
+  .foot-note {
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--gray);
+    margin-top: 20px;
+    line-height: 1.6;
+  }
+
+  /* Success state */
+  .success {
+    display: none;
+    text-align: center;
+    padding: 40px 12px 8px;
+  }
+  .success .icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: #E8F3FF;
+    color: var(--blue);
+    font-size: 30px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+  }
+  .success h2 { font-size: 19px; margin-bottom: 8px; color: #191F28; }
+  .success p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+
+  @media (max-width: 380px) {
+    .card { padding: 22px 16px; }
+    .heading h1 { font-size: 21px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand"><span class="dot"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20H6C4.89543 20 4 19.1046 4 18V12Z" fill="white"/><circle cx="12" cy="12" r="2.4" fill="#3182F6"/></svg></span>토스플레이스 공식대리점 엔프타</div>
+
+  <div class="heading">
+    <div class="eyebrow">주식회사 엔프타 대리점에 상담 문의하기</div>
+    <h1>궁금하신 점을 남겨주세요</h1>
+  </div>
+
+  <div class="card">
+
+    <form id="leadForm">
+      <div class="field">
+        <input type="tel" id="phone" placeholder="휴대폰 번호" required inputmode="numeric">
+      </div>
+
+      <div class="field field-row">
+        <input type="text" id="shopName" placeholder="상호명" required>
+        <input type="text" id="bizNumber" placeholder="사업자번호 (선택)">
+      </div>
+
+      <div class="section-label">상담 희망 날짜</div>
+      <div class="field">
+        <input type="date" id="prefDate">
+      </div>
+
+      <div class="section-label">상담 가능 시간</div>
+      <div class="time-slots" id="timeSlots"></div>
+
+      <div class="field">
+        <textarea id="message" placeholder="문의 내용 (선택)"></textarea>
+      </div>
+
+      <div class="consent">
+        <div class="consent-row checked" id="requiredConsent">
+          <div class="check">✓</div>
+          <span class="label-required">필수</span> 필수 항목 모두 동의
+        </div>
+        <div class="consent-row" id="marketingConsent">
+          <div class="check"></div>
+          <span class="label-optional">선택</span> 마케팅 정보 수신 모두 동의
+        </div>
+        <div class="consent-sub">
+          <span>개인정보 수집·이용 동의</span><a href="#" onclick="return false;">보기</a>
+        </div>
+        <div class="consent-sub">
+          <span>매체별 마케팅 정보 수신 동의</span><a href="#" onclick="return false;">보기</a>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">동의하고 접수하기</button>
+      <div class="foot-note">접수하신 정보는 상담 목적으로만 사용되며,<br>영업일 기준 1일 이내에 담당자가 연락드립니다.</div>
+    </form>
+
+    <div class="success" id="successView">
+      <div class="icon">✓</div>
+      <h2>접수가 완료되었습니다</h2>
+      <p>빠른 시간 내에 담당자가<br>남겨주신 연락처로 안내드릴게요.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ⚠️ 이 부분을 구글 앱스스크립트 배포 후 받은 웹앱 URL로 바꿔주세요.
+  const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwLpJorR5C3YCRrtCbEW5kOK_UYeKDQZb4b4ZHrfrD11t8CaD346l7UKEyF4RvqASpf/exec";
+
+  const inquiryType = "설치문의";
+
+  // 상담 희망 날짜: 기본값 = 오늘, 과거 날짜는 선택 불가
+  const dateInput = document.getElementById("prefDate");
+  function toDateStr(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return y + "-" + m + "-" + day;
+  }
+  const todayStr = toDateStr(new Date());
+  dateInput.min = todayStr;
+  dateInput.value = todayStr;
+
+  // 9시-10시 ~ 20시-21시, 1시간 단위 상담 가능 시간대
+  const timeSlotsWrap = document.getElementById("timeSlots");
+  let selectedSlot = "";
+  for (let h = 9; h < 21; h++) {
+    const btn = document.createElement("div");
+    btn.className = "time-slot";
+    btn.textContent = h + "시-" + (h + 1) + "시";
+    btn.dataset.value = btn.textContent;
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".time-slot").forEach(s => s.classList.remove("selected"));
+      if (selectedSlot === btn.dataset.value) {
+        selectedSlot = "";
+      } else {
+        btn.classList.add("selected");
+        selectedSlot = btn.dataset.value;
+      }
+    });
+    timeSlotsWrap.appendChild(btn);
+  }
+
+  const requiredRow = document.getElementById("requiredConsent");
+  const marketingRow = document.getElementById("marketingConsent");
+  let requiredChecked = true;
+  let marketingChecked = false;
+
+  requiredRow.addEventListener("click", () => {
+    requiredChecked = !requiredChecked;
+    requiredRow.classList.toggle("checked", requiredChecked);
+  });
+  marketingRow.addEventListener("click", () => {
+    marketingChecked = !marketingChecked;
+    marketingRow.classList.toggle("checked", marketingChecked);
+  });
+
+  document.getElementById("leadForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    if (!requiredChecked) {
+      alert("필수 항목 동의가 필요합니다.");
+      return;
+    }
+
+    const phone = document.getElementById("phone").value.trim();
+    const shopName = document.getElementById("shopName").value.trim();
+    const bizNumber = document.getElementById("bizNumber").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!phone || !shopName) {
+      alert("휴대폰 번호와 상호명은 필수입니다.");
+      return;
+    }
+
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.textContent = "접수 중...";
+
+    const payload = new URLSearchParams({
+      type: inquiryType,
+      phone: phone,
+      shopName: shopName,
+      bizNumber: bizNumber,
+      preferredDate: dateInput.value || todayStr,
+      preferredTime: selectedSlot || "미선택",
+      message: message,
+      marketing: marketingChecked ? "동의" : "미동의",
+      submittedAt: new Date().toLocaleString("ko-KR"),
+    });
+
+    fetch(GAS_WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: payload.toString(),
+    })
+      .then(() => {
+        document.getElementById("leadForm").style.display = "none";
+        document.getElementById("successView").style.display = "block";
+      })
+      .catch(() => {
+        alert("접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+        btn.disabled = false;
+        btn.textContent = "동의하고 접수하기";
+      });
+  });
+</script>
+</body>
+</html>
