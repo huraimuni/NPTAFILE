@@ -202,9 +202,103 @@
     .card { padding: 22px 16px; }
     .heading h1 { font-size: 21px; }
   }
+
+  /* Consent modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 20, 30, 0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: white;
+    border-radius: 16px;
+    max-width: 440px;
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .modal-head {
+    padding: 20px 22px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-head h3 { font-size: 16px; font-weight: 800; color: #191F28; }
+  .modal-close {
+    background: none; border: none; cursor: pointer;
+    font-size: 20px; color: var(--gray); line-height: 1;
+    padding: 4px;
+  }
+  .modal-body {
+    padding: 18px 22px 22px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #333;
+  }
+  .modal-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 14px;
+    font-size: 12.5px;
+  }
+  .modal-body th, .modal-body td {
+    border: 1px solid var(--border);
+    padding: 7px 9px;
+    text-align: left;
+  }
+  .modal-body th { background: #F9FAFB; font-weight: 700; width: 30%; }
+  .modal-body p { margin-bottom: 10px; }
+  .modal-body .note { color: var(--gray); font-size: 12px; }
 </style>
 </head>
 <body>
+
+<div class="modal-overlay" id="modalPrivacy">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>개인정보 수집·이용 동의</h3>
+      <button class="modal-close" onclick="closeModal('modalPrivacy')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>토스플레이스 공식대리점 엔프타는 상담 신청을 위해 아래와 같이 개인정보를 수집·이용합니다.</p>
+      <table>
+        <tr><th>수집 항목</th><td>휴대폰 번호, 상호명, 사업자번호(선택), 문의 내용</td></tr>
+        <tr><th>수집 목적</th><td>상담 신청 접수 및 상담원 배정, 상담 진행을 위한 연락</td></tr>
+        <tr><th>보유·이용 기간</th><td>상담 완료 후 1년간 보관 후 파기 (관계 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관)</td></tr>
+      </table>
+      <p class="note">귀하는 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다. 다만 동의하지 않으실 경우 상담 신청 접수가 제한될 수 있습니다.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalMarketing">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>매체별 마케팅 정보 수신 동의</h3>
+      <button class="modal-close" onclick="closeModal('modalMarketing')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>토스플레이스 공식대리점 엔프타는 프로모션 및 이벤트 안내를 위해 아래와 같이 마케팅 정보를 발송할 수 있습니다.</p>
+      <table>
+        <tr><th>수집 목적</th><td>신규 프로모션, 이벤트, 혜택 정보 안내</td></tr>
+        <tr><th>발송 매체</th><td>문자(SMS), 전화, 카카오톡 등</td></tr>
+        <tr><th>보유·이용 기간</th><td>동의 철회 시 또는 상담 완료 후 1년까지</td></tr>
+      </table>
+      <p class="note">본 동의는 선택 사항이며, 동의하지 않으셔도 상담 신청에는 영향이 없습니다. 동의 후에도 언제든지 수신 거부(철회)를 요청하실 수 있습니다.</p>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
 
   <div class="brand"><span class="dot"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20H6C4.89543 20 4 19.1046 4 18V12Z" fill="white"/><circle cx="12" cy="12" r="2.4" fill="#3182F6"/></svg></span>토스플레이스 공식대리점 엔프타</div>
@@ -248,10 +342,10 @@
           <span class="label-optional">선택</span> 마케팅 정보 수신 모두 동의
         </div>
         <div class="consent-sub">
-          <span>개인정보 수집·이용 동의</span><a href="#" onclick="return false;">보기</a>
+          <span>개인정보 수집·이용 동의</span><a href="#" onclick="openModal('modalPrivacy'); return false;">보기</a>
         </div>
         <div class="consent-sub">
-          <span>매체별 마케팅 정보 수신 동의</span><a href="#" onclick="return false;">보기</a>
+          <span>매체별 마케팅 정보 수신 동의</span><a href="#" onclick="openModal('modalMarketing'); return false;">보기</a>
         </div>
       </div>
 
@@ -273,6 +367,18 @@
   const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw85QQ7PIwlIGzQ-8v-2facLYPfrBLFUHYpCZjyZ7Zx3K2IGrAafzlZTBK_dp1zJ-l_/exec";
 
   const inquiryType = "설치문의";
+
+  function openModal(id) {
+    document.getElementById(id).classList.add("open");
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove("open");
+  }
+  document.querySelectorAll(".modal-overlay").forEach(overlay => {
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) overlay.classList.remove("open");
+    });
+  });
 
   // 상담 희망 날짜: 기본값 = 오늘, 과거 날짜는 선택 불가
   const dateInput = document.getElementById("prefDate");
